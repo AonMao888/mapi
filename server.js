@@ -1,5 +1,6 @@
 const express = require("express");
 const si = require("systeminformation");
+const ip = require('ip');
 const app = express();
 
 app.get("/", (req, res) => {
@@ -36,5 +37,11 @@ app.get("/system/:type", async(req, res) => {
     }
 })
 
+//ip address
+app.get("/ip",(req,res)=>{
+    res.json({
+        "ip":ip.address()
+    })
+})
 
 app.listen(80, () => { console.log("server started with port 80") })
