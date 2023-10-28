@@ -1,7 +1,9 @@
 const express = require("express");
 const si = require("systeminformation");
 const ip = require('ip');
+const device = require("express-device");
 const app = express();
+app.use(device.capture());
 
 app.get("/", (req, res) => {
     res.send("HOme")
@@ -42,6 +44,11 @@ app.get("/ip",(req,res)=>{
     res.json({
         "ip":ip.address()
     })
+})
+
+//device
+app.get("/device",(req,res)=>{
+    res.send(req.device.type)
 })
 
 app.listen(80, () => { console.log("server started with port 80") })
