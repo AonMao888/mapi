@@ -10,5 +10,17 @@
         "type":"system",
         "des":"This api can detect your device os system",
         "link":"https://maoapi.vercel.app/os"
+    },
+    {
+        "name":"Country",
+        "type":"public",
+        "des":"This api can search countries information",
+        "link":"https://maoapi.vercel.app/country/myanmar"
+    },
+    {
+        "name":"Phone Valid",
+        "type":"public",
+        "des":"This api can check phone number information",
+        "link":"https://maoapi.vercel.app/country/myanmar"
     }
 ]

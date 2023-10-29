@@ -5,6 +5,7 @@ const device = require("express-device");
 const os = require('os');
 const ejs = require("ejs");
 const {getCountryByName} = require('node-countries');
+const {phone} = require('phone');
 
 const app = express();
 app.use(device.capture());
@@ -82,6 +83,12 @@ app.get("/os",(req,res)=>{
 app.get('/country/:name',(req,res)=>{
     var name = req.params.name;
     res.json(getCountryByName(name))
+})
+
+//phone number info api
+app.get('/phone/:number',(req,res)=>{
+    var number = req.params.number;
+    res.json(phone(number))
 })
 
 app.listen(80, () => { console.log("server started with port 80") })
