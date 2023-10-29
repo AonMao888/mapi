@@ -1,0 +1,14 @@
+[
+    {
+        "name":"Device",
+        "type":"system",
+        "des":"This api can detect your device type(Eg.window, phone)",
+        "link":"https://maoapi.vercel.app/device"
+    },
+    {
+        "name":"OS",
+        "type":"system",
+        "des":"This api can detect your device os system",
+        "link":"https://maoapi.vercel.app/os"
+    }
+]

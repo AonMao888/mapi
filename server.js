@@ -3,12 +3,22 @@ const si = require("systeminformation");
 const ip = require('ip');
 const device = require("express-device");
 const os = require('os');
+const ejs = require("ejs");
+const {getCountryByName} = require('node-countries');
+
 const app = express();
 app.use(device.capture());
+app.set('view engine','ejs');
+app.set('views',__dirname+'/views')
 
 app.get("/", (req, res) => {
-    res.send("HOme")
+    res.render('home')
 })
+
+//get external file
+app.get("/home.css", (req, res) => {res.sendFile(__dirname+'/views/css/home.css')})
+app.get("/home.js", (req, res) => {res.sendFile(__dirname+'/views/js/home.js')})
+app.get("/json", (req, res) => {res.sendFile(__dirname+'/list.json')})
 
 //system informations
 app.get("/system/:type", async(req, res) => {
@@ -49,20 +59,29 @@ app.get("/ip",(req,res)=>{
 
 //device
 app.get("/device",(req,res)=>{
-    res.send(req.device.type)
+    res.send({
+        "device":req.device.type
+    })
 })
 
 //os
 app.get("/os",(req,res)=>{
     res.json({
         'platform':os.platform(),
+        'type':os.type(),
         'release':os.release(),
         'arch':os.arch(),
-        'type':os.type(),
-        'tmpdir':os.tmpdir(),
         'machine':os.machine(),
-        'hostname':os.hostname()
+        'hostname':os.hostname(),
+        'homedir':os.homedir(),
+        'tmpdir':os.tmpdir(),
     })
+})
+
+//country api
+app.get('/country/:name',(req,res)=>{
+    var name = req.params.name;
+    res.json(getCountryByName(name))
 })
 
 app.listen(80, () => { console.log("server started with port 80") })
