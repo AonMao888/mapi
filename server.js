@@ -6,11 +6,15 @@ const os = require('os');
 const ejs = require("ejs");
 const {getCountryByName} = require('node-countries');
 const {phone} = require('phone');
+const wifi = require('node-wifi');
 
 const app = express();
 app.use(device.capture());
 app.set('view engine','ejs');
-app.set('views',__dirname+'/views')
+app.set('views',__dirname+'/views');
+wifi.init({
+    iface:null
+})
 
 app.get("/", (req, res) => {
     res.render('home')
@@ -89,6 +93,24 @@ app.get('/country/:name',(req,res)=>{
 app.get('/phone/:number',(req,res)=>{
     var number = req.params.number;
     res.json(phone(number))
+})
+
+//scan wifi networks
+app.get('/wifi/scan',async(req,res)=>{
+     await wifi.scan((error,network)=>{
+        if(error){
+            res.send(error)
+        }else{
+            res.json(network)
+        }
+    })
+})
+
+//connect wifi networks
+app.get('/wifi/connect',(req,res)=>{
+    var ssid = req.query.ssid;
+    var pass = req.query.password;
+    
 })
 
 app.listen(80, () => { console.log("server started with port 80") })
