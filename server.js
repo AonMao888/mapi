@@ -2,6 +2,7 @@ const express = require("express");
 const si = require("systeminformation");
 const ip = require('ip');
 const device = require("express-device");
+const os = require('os');
 const app = express();
 app.use(device.capture());
 
@@ -49,6 +50,19 @@ app.get("/ip",(req,res)=>{
 //device
 app.get("/device",(req,res)=>{
     res.send(req.device.type)
+})
+
+//os
+app.get("/os",(req,res)=>{
+    res.json({
+        'platform':os.platform(),
+        'release':os.release(),
+        'arch':os.arch(),
+        'type':os.type(),
+        'tmpdir':os.tmpdir(),
+        'machine':os.machine(),
+        'hostname':os.hostname()
+    })
 })
 
 app.listen(80, () => { console.log("server started with port 80") })
