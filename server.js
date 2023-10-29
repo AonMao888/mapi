@@ -96,21 +96,46 @@ app.get('/phone/:number',(req,res)=>{
 })
 
 //scan wifi networks
-app.get('/wifi/scan',async(req,res)=>{
-     await wifi.scan((error,network)=>{
-        if(error){
-            res.send(error)
-        }else{
-            res.json(network)
-        }
-    })
-})
-
-//connect wifi networks
-app.get('/wifi/connect',(req,res)=>{
-    var ssid = req.query.ssid;
-    var pass = req.query.password;
-    
+app.get('/wifi/:type',async(req,res)=>{
+    let type = req.params.type;
+    if(type == 'scan'){
+        await wifi.scan((error,network)=>{
+            if(error){
+                res.send(error)
+            }else{
+                res.json(network)
+            }
+        })
+    }else if(type == 'connect'){
+        var ssid = req.query.ssid;
+        var pass = req.query.password;
+        await wifi.connect({ssid:ssid, password:pass},()=>{
+            res.json({
+                "status":"connected",
+                "error":"none"
+            })
+        })
+    }else if(type == 'disconnect'){
+        wifi.disconnect(error=>{
+            if(error){
+                res.send(error);
+            }else{
+                res.json({
+                    "status":"disconnected!",
+                    "error":"none"
+                })
+            }
+        })
+    }else if(type == 'current'){
+        wifi.getCurrentConnections((err,current)=>{
+            if(err){
+                res.json(err)
+            }else{
+                res.json(current)
+            }
+        })
+    }
+     
 })
 
 app.listen(80, () => { console.log("server started with port 80") })
