@@ -1,12 +1,16 @@
 const express = require("express");
 const si = require("systeminformation");
-const ip = require('ip');
 const device = require("express-device");
 const os = require('os');
 const ejs = require("ejs");
 const {getCountryByName} = require('node-countries');
 const {phone} = require('phone');
 const wifi = require('node-wifi');
+const wifipass = require('wifi-password');
+const QRCode = require('qrcode');
+const sharp = require('sharp');
+const bwip = require('bwip-js');
+const db = require(__dirname+'/list.json');
 
 const app = express();
 app.use(device.capture());
@@ -20,10 +24,23 @@ app.get("/", (req, res) => {
     res.render('home')
 })
 
+app.get("/doc", (req, res) => {
+    res.redirect('/')
+})
+
+app.get("/doc/:name", async(req, res) => {
+    let getitem = await db.find((item)=>item.link === req.params.name);
+    if(getitem){
+        res.render('doc',{all:getitem})
+    }else{
+        res.redirect('../../')
+    }
+})
+
 //get external file
 app.get("/home.css", (req, res) => {res.sendFile(__dirname+'/views/css/home.css')})
 app.get("/home.js", (req, res) => {res.sendFile(__dirname+'/views/js/home.js')})
-app.get("/json", (req, res) => {res.sendFile(__dirname+'/list.json')})
+app.get("/json", (req, res) => {res.json(db)})
 
 //system informations
 app.get("/system/:type", async(req, res) => {
@@ -97,6 +114,9 @@ app.get('/phone/:number',(req,res)=>{
 
 //scan wifi networks
 app.get('/wifi/:type',async(req,res)=>{
+    if(req.device.type == 'phone'){
+        return res.send("This api is currently available on Linux, Window and MacOS")
+    }
     let type = req.params.type;
     if(type == 'scan'){
         await wifi.scan((error,network)=>{
@@ -134,8 +154,79 @@ app.get('/wifi/:type',async(req,res)=>{
                 res.json(current)
             }
         })
+    }else if(type == 'password'){
+        wifipass().then(pass=>{
+            res.json({
+                "status":"fine",
+                "password":pass
+            })
+        })
     }
      
+})
+
+//encryption and decryption api
+app.get('/crypto/:type',async(req,res)=>{
+    let type = req.params.type;
+    let key = req.query.key;
+    let text = req.query.text;
+    let cryptr = new Cryptr(key);
+
+    if(type == 'encrypt'){
+        let data = await cryptr.encrypt(text);
+        res.send(data)
+    }else if(type == 'decrypt'){
+
+    }else{
+        res.send("Are you visit correct api link?")
+    }
+})
+
+//qr code api
+app.get('/qrcode',async(req,res)=>{
+    let text = req.query.text;
+    let width = req.query.width;
+    let height = req.query.height;
+    let darkcolor = req.query.dark;
+    let lightcolor = req.query.light;
+
+    let option = {
+        errorCorrectionLevel:'H',
+        type:'image/jpeg',
+        margin:2,
+        color:{
+            dark:darkcolor,
+            light:lightcolor
+        },
+        quality:1
+    }
+    let code = await QRCode.toBuffer(text,option);
+    const resized = await sharp(code).resize(Number(width),Number(height)).toBuffer();
+    res.set('Content-Type','image/png');
+    res.send(resized);
+})
+
+app.get('/barcode',(req,res)=>{
+    let scale,height;
+    if(req.query.scale == null){scale = 3}else{scale = req.query.scale}
+    if(req.query.height == null){height = 9}else{height = req.query.height}
+    const option = {
+        bcid: 'code128',
+        text: req.query.text,
+        scale : scale,
+        height: height,
+
+        includetext: true,
+        textxalign: 'center'
+    }
+    const code = bwip.toBuffer(option,(err,url)=>{
+        if(err){
+            res.send(err)
+        }else{
+            res.setHeader('Content-Type','image/png')
+            res.send(url)
+        }
+    })
 })
 
 app.listen(80, () => { console.log("server started with port 80") })

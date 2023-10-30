@@ -3,24 +3,49 @@
         "name":"Device",
         "type":"system",
         "des":"This api can detect your device type(Eg.window, phone)",
-        "link":"https://maoapi.vercel.app/device"
+        "link":"device",
+        "api":"https://maoapi.vercel.app/device"
     },
     {
         "name":"OS",
         "type":"system",
         "des":"This api can detect your device os system",
-        "link":"https://maoapi.vercel.app/os"
+        "link":"os",
+        "api":"https://maoapi.vercel.app/os"
     },
     {
         "name":"Country",
         "type":"public",
         "des":"This api can search countries information",
-        "link":"https://maoapi.vercel.app/country/myanmar"
+        "link":"country",
+        "api":"https://maoapi.vercel.app/country/myanmar"
     },
     {
         "name":"Phone Valid",
         "type":"public",
         "des":"This api can check phone number information",
-        "link":"https://maoapi.vercel.app/country/myanmar"
+        "link":"phone",
+        "api":"https://maoapi.vercel.app/phone/+959123456789"
+    },
+    {
+        "name":"Wifi",
+        "type":"network",
+        "des":"This api can connect, disconnect and scan wifi connection",
+        "link":"wifi",
+        "api":"https://maoapi.vercel.app/wifi/scan"
+    },
+    {
+        "name":"QR Code",
+        "type":"generate",
+        "des":"This api can generate qr doe for you",
+        "link":"qrcode",
+        "api":"https://maoapi.vercel.app/qrcode?width=200&height=200&dark=000000&light=ffffff&text=hello"
+    },
+    {
+        "name":"Barcode",
+        "type":"generate",
+        "des":"This api can generate barcode for you",
+        "link":"barcode",
+        "api":"https://maoapi.vercel.app/barcode?scale=3&height=9&text=hello"
     }
 ]
