@@ -11,7 +11,7 @@
     <nav>
         <div class="left">
             <span class="material-symbols-outlined menubtn">menu</span>
-            <a href="" class="logo">MMao API</a>
+            <a href="../../" class="logo">MMao API</a>
         </div>
         <div class="right">
             <div class="search">
@@ -39,13 +39,61 @@
             <a href=""><p>Generate</p><span class="material-symbols-outlined">arrow_forward_ios</span></a>
         </div>
         <div class="doc">
-            <h1 class="title"><%=all.name%></h1>
-            <div class="d"><span class="material-symbols-outlined">dns</span><p>Category : <%=all.type%></p></div>
+            <div class="head">
+                <div class="left">
+                    <h1 class="title"><%=all.name%></h1>
+                    <div class="d"><span class="material-symbols-outlined">dns</span><p>Category : <%=all.type%></p></div>
+                </div>
+                <div class="right">
+                    <a href="<%=all.api%>" class="visit">Visit API</a>
+                    <a href="javascript:copy('<%=all.api%>')" title="Copy this API" class="copy"><span class="material-symbols-outlined">content_copy</span></a>
+                </div>
+            </div>
             <div class="content">
                 <p><%=all.des%></p>
+                <div class="api">
+                    <p>API</p>
+                    <p><a href="<%=all.api%>"><%=all.api%></a></p>
+                </div>
+                <h3>API response</h3>
+                <div class="example">
+                    one
+                </div>
             </div>
         </div>
     </div>
-    <script src="../home.js"></script>
+    <div class="toast"></div>
+    <script>
+        let api = '<%=all.api%>';
+        function copy(data){
+            var inp = document.createElement('input');
+            inp.value = data;
+            document.body.append(inp);
+            inp.select();
+            document.execCommand('copy');
+            inp.remove();
+            toast("API was copied");
+        }
+        function toast(text){
+            let tdiv = document.querySelector(".toast");
+            tdiv.innerHTML = data;
+            tdiv.style.bottom = 0;
+            setTimeout(()=>{
+                tdiv.style.bottom = '-10vh';
+                tdiv.textContent = '';
+            },3242)
+        }
+        const menu = document.querySelector(".menu");
+        const menubtn = document.querySelector(".menubtn");
+        const menuclose = document.querySelector(".menu .close");
+
+        menubtn.onclick=()=>{
+            menu.style.left = '0'
+        }
+        menuclose.onclick=()=>{
+            menu.style.left = '-369px'
+        }
+        fetch(api).then(re=>re.json()).then(g=>{document.querySelector(".example").innerHTML = g})
+    </script>
 </body>
 </html>

@@ -34,6 +34,7 @@ nav .menubtn{
     color: #fff;
     font-weight: bold;
     width: max-content;
+    user-select: none;
 }
 nav .right{
     display: flex;
@@ -67,6 +68,7 @@ nav .right{
     padding: 12px 29px;
     font-size: 17px;
     cursor: pointer;
+    user-select: none;
 }
 nav .right a{
     text-decoration: none;
@@ -197,6 +199,13 @@ nav .right a{
     width: 100%;
     height: 100%;
     margin: 51px;
+    position: relative;
+}
+.head{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
 }
 .doc .title{
     margin: 9px;
@@ -230,6 +239,89 @@ nav .right a{
     color: var(--color);
     font-size: 19px;
 }
+.doc .content h3{
+    font-size: 24px;
+    color: var(--color);
+    margin: 9px;
+    margin-left: 12px;
+    margin-top: 24px;
+}
+.example{
+    background: #333;
+    color: white;
+    margin: 5px 9px;
+    padding: 12px;
+    font-size: 18px;
+}
+.head .right{
+    display: flex;
+    align-items: center;
+    outline: 3px solid royalblue;
+    border: 2px solid royalblue;
+    border-radius: 4px;
+    outline-offset: 2px;
+}
+.visit{
+    text-decoration: none;
+    color: royalblue;
+    padding: 7px 23px;
+    font-size: 17px;
+    user-select: none;
+    transition: 0.4s;
+    border: 1px solid transparent;
+}
+.visit:hover{
+    background: royalblue;
+    color: white;
+}
+.copy{
+    text-decoration: none;
+    color: white;
+    background: royalblue;
+    padding: 7px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid royalblue;
+    user-select: none;
+    transition: 0.4s;
+}
+.copy:hover{
+    color: #333;
+}
+.copy span{font-size: 20px;}
+.toast{
+    position: fixed;
+    left: 0;
+    bottom: -10vh;
+    background: rgb(45, 45, 45);
+    color: white;
+    margin: 12px;
+    border-radius: 4px;
+    transition: 0.4s;
+    padding: 9px 19px;
+    font-size: 19px;
+}
+.api{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    background: #c9c9c93b;
+    border: 1px solid #eee;
+    color: white;
+    margin: 3px 9px;
+    border-radius: 4px;
+    padding: 3px 0;
+}
+.api p:nth-child(1){
+    color: rgb(2, 192, 2);
+    font-weight: bold;
+}
+.api p a{
+    color: royalblue;
+    text-decoration: none;
+}
 
 @media(max-width:1222px){
     .logo{font-size: 27px;}
@@ -254,6 +346,7 @@ nav .right a{
         top: 0;
         left: -369px;
         transition: 0.4s;
+        z-index: 1;
     }
     .menu .close{display: block;}
     .grid{

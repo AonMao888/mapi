@@ -11,6 +11,7 @@ const QRCode = require('qrcode');
 const sharp = require('sharp');
 const bwip = require('bwip-js');
 const db = require(__dirname+'/list.json');
+const cors = require('cors');
 
 const app = express();
 app.use(device.capture());
@@ -19,6 +20,7 @@ app.set('views',__dirname+'/views');
 wifi.init({
     iface:null
 })
+app.use(cors({origin:'*'}))
 
 app.get("/", (req, res) => {
     res.render('home')
