@@ -57,7 +57,7 @@
                 </div>
                 <h3>API response</h3>
                 <div class="example">
-                    one
+                    
                 </div>
             </div>
         </div>
@@ -93,7 +93,7 @@
         menuclose.onclick=()=>{
             menu.style.left = '-369px'
         }
-        fetch(api).then(re=>re.json()).then(g=>{document.querySelector(".example").innerHTML = g})
+        fetch(api).then(re=>re.json()).then(g=>{document.querySelector(".example").innerHTML = JSON.stringify(g)})
     </script>
 </body>
 </html>

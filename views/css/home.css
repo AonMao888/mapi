@@ -226,6 +226,7 @@ nav .right a{
 }
 .doc .d p{
     margin: 5px;
+    font-size: 17px;
 }
 .doc .content{
     background: #cecece4f;
@@ -366,8 +367,20 @@ nav .right a{
     .item .des p span{font-size: 17px;}
     .item .des .more{font-size: 17px;}
 }
-@media(max-width:707px){
+@media(max-width:720px){
     .grid{grid-template-columns: repeat(2,1fr);}
+    .doc{margin: 32px;}
+    .doc .title{font-size: 32px;}
+    .doc .content h3{font-size: 20px;}
+    .doc .d span{font-size: 19px;}
+    .doc .d p{font-size: 15px;margin: 3px;}
+    .visit{font-size: 15px;padding: 7px 15px;}
+    .copy span{font-size: 15px;}
+    .doc .content p{font-size: 17px;}
+    .example{font-size: 16px;}
+}
+@media(max-width:604px){
+    .doc{margin: 9px auto;width: 91%;}
 }
 @media(max-width:565px){
     .right .searchshow{display: block;}
@@ -375,6 +388,13 @@ nav .right a{
 }
 @media(max-width:500px){
     .logo{font-size: 23px;}
+    .doc .title{font-size: 24px;}
+    .doc .d p{font-size: 14px;}
     nav .menubtn{font-size: 24px;}
+    .visit{font-size: 14px;padding: 5px 14px;}
+    .copy span{font-size: 15px;}
+    .copy{padding: 7px 9px;}
+    .doc .content p{font-size: 15px;}
+    .example{font-size: 14px;}
     .grid{grid-template-columns: repeat(1,1fr);gap: 7px;}
 }
