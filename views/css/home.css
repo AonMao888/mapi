@@ -15,6 +15,7 @@ nav{
     padding: 15px 0;
     position: sticky;
     top: 0;
+    z-index: 1;
 }
 nav .left{
     display: flex;
@@ -240,18 +241,23 @@ nav .right a{
     color: var(--color);
     font-size: 19px;
 }
+.doc .content p span{
+    color: royalblue;
+}
 .doc .content h3{
     font-size: 24px;
     color: var(--color);
     margin: 9px;
     margin-left: 12px;
-    margin-top: 24px;
+    margin-top: 15px;
 }
 .example{
     background: #333;
     color: white;
     margin: 5px 9px;
     padding: 12px;
+    
+    word-break: break-all;
     font-size: 18px;
 }
 .head .right{
@@ -322,6 +328,101 @@ nav .right a{
 .api p a{
     color: royalblue;
     text-decoration: none;
+}
+table{
+    background: var(--back);
+    width: 98%;
+    margin: 0 auto;
+}
+th{
+    background: var(--color);
+    color: var(--back);
+    padding: 8px;
+    font-size: 18px;
+}
+td{
+    text-align: center;
+    padding: 9px;
+    color: var(--color);
+    font-size: 19px;
+}
+td .true{
+    font-size: 24px;
+    color: rgb(9, 211, 9);
+    user-select: none;
+}
+td .false{
+    font-size: 24px;
+    user-select: none;
+    color: rgb(237, 0, 0);
+}
+.fab{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    background: red;
+    color: var(--back);
+    margin: 19px;
+    width: 51px;
+    height: 51px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    transition: 0.4s;
+    outline: 2px solid white;
+    outline-offset: -4px;
+    transform: scale(1);
+}
+.fab:hover{
+    outline-color: red;
+    outline-offset: 2px;
+}
+.fab:active{
+    transform: scale(0.91);
+}
+.fab span{
+    font-size: 32px;
+}
+.res{
+    position: fixed;
+    z-index: 2;
+    top: 100vh;
+    left: 0;
+    background: var(--back);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: 0.4s;
+}
+.res h1{
+    margin: 9px;
+    font-size: 36px;
+    color: var(--color);
+    text-align: center;
+    word-break: break-all;
+}
+.res .json{
+    background: #333;
+    color: #fff;
+    padding: 9px;
+    font-size: 19px;
+    margin: 9px 15px;
+    word-break: break-all;
+}
+.res button{
+    color: #fff;
+    background: red;
+    padding: 12px 36px;
+    border-radius: 5px;
+    outline: none;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
 }
 
 @media(max-width:1222px){

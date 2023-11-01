@@ -31,11 +31,19 @@ app.get("/doc", (req, res) => {
 })
 
 app.get("/doc/:name", async(req, res) => {
-    let getitem = await db.find((item)=>item.link === req.params.name);
-    if(getitem){
-        res.render('doc',{all:getitem})
-    }else{
-        res.redirect('../../')
+    let name = req.params.name;
+    if(name == 'os'){
+        res.sendFile(__dirname+'/html/os.html')
+    }else if(name == 'device'){
+        res.sendFile(__dirname+'/html/device.html')
+    }else if(name == 'country'){
+        res.sendFile(__dirname+'/html/country.html')
+    }else if(name == 'phone'){
+        res.sendFile(__dirname+'/html/phone.html')
+    }else if(name == 'wifi'){
+        res.sendFile(__dirname+'/html/wifi.html')
+    }else if(name == 'qrcode'){
+        res.sendFile(__dirname+'/html/qr.html')
     }
 })
 
@@ -191,7 +199,12 @@ app.get('/qrcode',async(req,res)=>{
     let height = req.query.height;
     let darkcolor = req.query.dark;
     let lightcolor = req.query.light;
-
+    if(width == null){
+        width = 200
+    }
+    if(height == null){
+        height = 200
+    }
     let option = {
         errorCorrectionLevel:'H',
         type:'image/jpeg',
